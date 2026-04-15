@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Planillas LCC</title>
+    <!-- Favicon básico -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    
+    <!-- Librería SheetJS para leer y guardar archivos Excel estadísticamente -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Librerías de Google API y GSI -->
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script async defer src="https://accounts.google.com/gsi/client"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .section { margin-bottom: 20px; display: none; }
+        .active { display: block; }
+        button { background: #4285f4; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:hover { background: #357ae8; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="file"] { margin-top: 10px; }
+        #log-console { background: #222; color: #0f0; padding: 10px; font-family: monospace; border-radius: 5px; height: 200px; overflow-y: auto; font-size: 13px; }
+        h1, h2 { color: #333; }
+        .alert { background: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; font-size: 14px; margin-bottom: 15px; border: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Generador de Planillas</h1>
+
+    <!-- PANTALLA 1: Contraseña -->
+    <div id="section-login" class="section active">
+        <h2>Paso 1: Autenticación de Acceso</h2>
+        <div class="alert">Aplicación privada. Ingresa la contraseña de acceso operativo.</div>
+        <input type="password" id="app-password" placeholder="Contraseña" onkeypress="if(event.key === 'Enter') checkPassword()">
+        <button id="btn-login" onclick="checkPassword()">Ingresar</button>
+        <p id="login-error" style="color: red; display: none;">Contraseña incorrecta.</p>
+    </div>
+
+    <!-- PANTALLA 2: Google Auth -->
+    <div id="section-google-auth" class="section">
+        <h2>Paso 2: Conectar con Google</h2>
+        <div class="alert">
+            Es obligatorio iniciar sesión con la cuenta institucional para tener acceso al directorio (People API).
+        </div>
+        <button id="btn-google" onclick="handleAuthClick()">Iniciar sesión con Google</button>
+    </div>
+
+    <!-- PANTALLA 3: Procesamiento -->
+    <div id="section-process" class="section">
+        <h2>Paso 3: Cargar y Procesar Archivo</h2>
+        <div class="alert">
+            Sube el archivo Excel (.xls o .xlsx) o CSV provisto por SIU. 
+            El navegador lo procesará y unificará la lista sin necesidad de servidores.
+        </div>
+        <input type="file" id="file-input" accept=".csv, .xls, .xlsx">
+        <button id="btn-process" onclick="processFile()">Procesar Alumnos</button>
+        <button id="btn-download" onclick="downloadExcel()" style="display: none; background: #0f9d58;">Descargar Excel Final</button>
+
+        <h3 style="margin-top: 20px;">Consola de Progreso</h3>
+        <div id="log-console">Esperando archivo...</div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

@@ -5,17 +5,17 @@
 - El archivo original con los alumnos tiene que tener el nombre 'los-3-listados-siu.xls'. Puede modificarse fácil en el script, es la variable 'input_file'. Además, el archivo tiene que seguir el formato que ejemplico en ejemplo.xls.
 
 # INSTALACIÓN E INICIALIZACIÓN ENTORNO VIRTUAL (venv)
-python -m venv venv
+python -m venv .venv
 
 inicio entorno virtual
 
 // Con lo siguiente inicializamos el entorno virtual
 
 ### Linux
-source venv/bin/activate
+source .venv/bin/activate
 
 ### Windows
-venv\Scripts\activate
+.venv\Scripts\activate
 
 
 # INSTALACIÓN DE DEPENDENCIAS
