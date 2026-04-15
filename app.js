@@ -3,7 +3,7 @@
 //////////////////////////
 // 1. REEMPLAZA ESTO CON EL ID DE CLIENTE WEB Q DEBERÁS CREAR EN GOOGLE CLOUD
 // (Tipo: Aplicación Web, con Origenes en tu dominio github.io)
-const CLIENT_ID = 'ELIGE_TU_CLIENT_ID_EN_GOOGLE_CLOUD.apps.googleusercontent.com';
+const CLIENT_ID = '29342078628-4i53r4765f7gmvvmiiguaqv6im702g9c.apps.googleusercontent.com';
 const API_KEY = ''; // NO NECESITAS API_KEY PARA PEOPLE API CON USUARIOS AUTENTICADOS, SOLO OAUTH. Dejar vacío o quitar si gapi lo permite sin quejarse.
 
 // Alcances para People Directory
