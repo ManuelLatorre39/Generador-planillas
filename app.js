@@ -95,18 +95,18 @@ function handleAuthClick() {
 // LÓGICA CORE EXCEL Y QUERIES
 //////////////////////////
 function normalizeName(name, level = 0) {
-    let normalizedName = name;
+    let normalizedName = String(name || '');
     
     if (level === 0) {
-        if (name.includes(',')) {
-            const [lastName, firstNames] = name.split(', ', 2);
+        if (normalizedName.includes(',')) {
+            const [lastName, firstNames] = normalizedName.split(', ', 2);
             const firstNamesWords = firstNames.split(' ');
             const firstTwoNames = firstNamesWords.slice(0, 2).join(' ');
             normalizedName = `${firstTwoNames} ${lastName}`;
         }
     } else if (level === 1) {
-        if (name.includes(',')) {
-            const [lastName, firstNames] = name.split(', ', 2);
+        if (normalizedName.includes(',')) {
+            const [lastName, firstNames] = normalizedName.split(', ', 2);
             const firstName = firstNames.split(' ')[0] || '';
             normalizedName = `${firstName} ${lastName}`;
         }
@@ -170,10 +170,16 @@ async function processFile() {
             // Construir JSON mapeado con alumno y legajo
             const parsedData = [];
             for (let i = headerIdx + 1; i < rows.length; i++) {
-                if (rows[i].length === 0 || !rows[i][indexAlumno]) continue;
+                if (!rows[i] || rows[i].length === 0) continue;
+                
+                const alumnoVal = rows[i][indexAlumno] ? String(rows[i][indexAlumno]).trim() : '';
+                if (!alumnoVal) continue;
+
+                const legajoVal = rows[i][indexLegajo] ? String(rows[i][indexLegajo]).trim() : 'Sin definir';
+
                 parsedData.push({
-                    'ALUMNO': rows[i][indexAlumno],
-                    'LEGAJO': rows[i][indexLegajo] || 'Sin definir'
+                    'ALUMNO': alumnoVal,
+                    'LEGAJO': legajoVal
                 });
             }
 
