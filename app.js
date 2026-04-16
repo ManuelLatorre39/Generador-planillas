@@ -114,9 +114,12 @@ function normalizeName(name, level = 0) {
         }
     }
 
-    // Solo limpiar espacios extra y convertir a Title Case
+    // Solo limpiar espacios extra y convertir a Title Case (Unicode-safe)
     normalizedName = normalizedName.replace(/\s+/g, ' ').trim();
-    normalizedName = normalizedName.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    normalizedName = normalizedName.toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
     return normalizedName;
 }
