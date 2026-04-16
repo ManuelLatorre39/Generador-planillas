@@ -142,7 +142,7 @@ async function processFile() {
     reader.onload = async (e) => {
         try {
             const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, {type: 'array'});
+            const workbook = XLSX.read(data, {type: 'array', codepage: 65001});
             const firstSheetName = workbook.SheetNames[0];
             const sheet = workbook.Sheets[firstSheetName];
             
