@@ -114,12 +114,8 @@ function normalizeName(name, level = 0) {
         }
     }
 
-    // Remover tildes y caracteres especiales
-    normalizedName = normalizedName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    normalizedName = normalizedName.replace(/[^\w\s]/gi, "");
+    // Solo limpiar espacios extra y convertir a Title Case
     normalizedName = normalizedName.replace(/\s+/g, ' ').trim();
-
-    // Convertir a Title Case para mejorar el matching con la API
     normalizedName = normalizedName.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
 
     return normalizedName;
