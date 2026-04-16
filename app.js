@@ -151,7 +151,9 @@ async function processFile() {
             
             let headerIdx = -1;
             for (let i = 0; i < rows.length; i++) {
-                const rowUpper = rows[i].map(c => String(c).toUpperCase().trim());
+                if (!rows[i] || !Array.isArray(rows[i])) continue;
+                // Array.from convierte posiciones vacías (sparse) en undefined, evitando errores
+                const rowUpper = Array.from(rows[i]).map(c => c ? String(c).toUpperCase().trim() : '');
                 if (rowUpper.some(c => c.includes('ALUMNO')) && rowUpper.some(c => c.includes('LEGAJO'))) {
                     headerIdx = i;
                     break;
@@ -165,7 +167,7 @@ async function processFile() {
             }
 
             // Mapear headers reales
-            const headers = rows[headerIdx].map(h => String(h).toUpperCase().trim());
+            const headers = Array.from(rows[headerIdx]).map(h => h ? String(h).toUpperCase().trim() : '');
             const indexAlumno = headers.findIndex(h => h.includes('ALUMNO'));
             const indexLegajo = headers.findIndex(h => h.includes('LEGAJO'));
 
