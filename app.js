@@ -24,6 +24,10 @@ let finalContactsData = [];
 
 function logMessage(message) {
     const consoleDiv = document.getElementById('log-console');
+    if (!consoleDiv) {
+        console.log(message);
+        return;
+    }
     const p = document.createElement('div');
     p.textContent = message;
     consoleDiv.appendChild(p);
@@ -47,7 +51,6 @@ function checkPassword() {
 function gapiLoaded() {
     gapi.load('client', initializeGapiClient);
 }
-document.querySelector('script[src="https://apis.google.com/js/api.js"]').onload = gapiLoaded;
 
 async function initializeGapiClient() {
     await gapi.client.init({
@@ -66,7 +69,6 @@ function gisLoaded() {
     gisInited = true;
     checkIfReady();
 }
-document.querySelector('script[src="https://accounts.google.com/gsi/client"]').onload = gisLoaded;
 
 function checkIfReady() {
     if (gapiInited && gisInited) {
