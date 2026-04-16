@@ -119,6 +119,9 @@ function normalizeName(name, level = 0) {
     normalizedName = normalizedName.replace(/[^\w\s]/gi, "");
     normalizedName = normalizedName.replace(/\s+/g, ' ').trim();
 
+    // Convertir a Title Case para mejorar el matching con la API
+    normalizedName = normalizedName.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+
     return normalizedName;
 }
 
